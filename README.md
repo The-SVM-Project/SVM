@@ -85,7 +85,7 @@ Example
 -------
 
     ; Example S-expression program
-    (print (+ 1 2 3))
+    (print (add 1 2 3))
     
 
 Contributing
