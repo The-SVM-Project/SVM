@@ -1,5 +1,3 @@
- SVM — A Virtual Machine that runs on lists body { font-family: Arial, sans-serif; line-height: 1.6; margin: 40px; background: #f9f9f9; color: #333; } h1, h2, h3 { color: #2c3e50; } pre { background: #ecf0f1; padding: 15px; border-radius: 5px; overflow-x: auto; } code { background: #ecf0f1; padding: 2px 4px; border-radius: 3px; } blockquote { font-style: italic; color: #7f8c8d; border-left: 4px solid #bdc3c7; margin: 20px 0; padding-left: 15px; } ul { margin: 10px 0 20px 20px; }
-
 SVM — ("A Virtual Machine that runs on lists.")
 ===============================================
 
