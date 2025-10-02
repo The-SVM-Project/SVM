@@ -1,0 +1,67 @@
+; Fully-featured SVM Example with Macro (.svmp)
+; Demonstrates: nested scopes, jumps, lists, math, I/O, syscalls, macros
+
+(
+    ; Global scope (ID 0)
+    (set x 0)                     ; number
+    (set max 3)                   ; number
+    (set messages (list))         ; empty list
+
+    ; Populate messages list
+    (
+        {populate}                ; scope ID 1
+        (set msg1 "Hello")        ; string
+        (set msg2 "World")
+        (set msg3 "SVM!")
+        (set messages (list msg1 msg2 msg3))
+    )
+
+    ; Macro definition and expansion
+    (
+        {macro_scope}             ; scope ID 5
+        ; Define a macro that prints all messages
+        (macro print_messages messages
+            (set idx 0)
+            (
+                {macro_loop}
+                (if (< idx (length messages))
+                    (
+                        (print (get messages idx))
+                        (set idx (add idx 1))
+                        (jump macro_loop)
+                    )
+                )
+            )
+        )
+        ; Expand macro at compile-time
+        (expand print_messages)
+    )
+
+    ; Main loop
+    (
+        {loop}                     ; scope ID 2
+        (set current (get messages x))
+        (print current)
+        (set x (add x 1))
+        (if (< x max)
+            (jump 2)
+        )
+    )
+
+    ; Math operations
+    (
+        {math_scope}               ; scope ID 3
+        (set sum (add 1 2 3 4 5))
+        (set diff (sub 10 3 2))
+        (set prod (mul 2 3 4))
+        (set quot (div 20 2 2))
+        (print "Math results:")
+        (print sum)
+        (print diff)
+        (print prod)
+        (print quot)
+    )
+
+    ; Final message
+    (print "Program complete!")
+)

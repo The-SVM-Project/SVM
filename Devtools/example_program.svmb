@@ -1,0 +1,107 @@
+<Scope ID 0> ; Top-Level Scope (Global)
+[__OPCODE__][SET]        ; x = 0
+[__VALUE__][number][0.0]
+[__OPCODE__][SET]        ; max = 3
+[__VALUE__][number][3.0]
+[__OPCODE__][SET]        ; messages = empty list
+[__VALUE__][list][ptr=empty][len=0]
+
+[__VALUE__][list][ptr=ScopeID_1][len=4] ; populate messages
+[__VALUE__][list][ptr=ScopeID_5][len=4] ; macro_scope / print_messages
+[__VALUE__][list][ptr=ScopeID_2][len=4] ; main loop
+[__VALUE__][list][ptr=ScopeID_3][len=9] ; math_scope
+
+[__OPCODE__][PRINT]
+[__VALUE__][string]["Program complete!"]
+</Scope ID 0>
+
+<Scope ID 1> ; populate messages
+[__OPCODE__][SET]        ; msg1 = "Hello"
+[__VALUE__][string]["Hello"]
+[__OPCODE__][SET]        ; msg2 = "World"
+[__VALUE__][string]["World"]
+[__OPCODE__][SET]        ; msg3 = "SVM!"
+[__VALUE__][string]["SVM!"]
+[__OPCODE__][SET]        ; messages = list(msg1,msg2,msg3)
+[__VALUE__][list][ptr=list_msg1_msg2_msg3][len=3]
+</Scope ID 1>
+
+<Scope ID 5> ; macro_scope
+[__OPCODE__][SET]        ; idx = 0
+[__VALUE__][number][0.0]
+[__VALUE__][list][ptr=Scope_macro_loop][len=4] ; macro loop body pointer
+</Scope ID 5>
+
+<Scope macro_loop>
+[__OPCODE__][IF_LT_JUMP] ; if idx < length(messages)
+[__VALUE__][scope_ptr=Scope_macro_loop_body]
+</Scope macro_loop>
+
+<Scope macro_loop_body>
+[__OPCODE__][GET]        ; current message
+[__VALUE__][list][ptr=messages][len=3]
+[__VALUE__][number][idx] ; index
+[__OPCODE__][PRINT]      ; print current
+[__VALUE__][number][current]
+[__OPCODE__][ADD]        ; idx + 1
+[__VALUE__][number][1.0]
+[__OPCODE__][SET]        ; update idx
+[__VALUE__][number][idx]
+[__OPCODE__][JUMP]
+[__VALUE__][scope_ptr=Scope_macro_loop]
+</Scope macro_loop_body>
+
+<Scope ID 2> ; main loop
+[__OPCODE__][GET]        ; current = messages[x]
+[__VALUE__][list][ptr=messages][len=3]
+[__VALUE__][number][x]
+[__OPCODE__][SET]        ; current
+[__VALUE__][number][current]
+[__OPCODE__][PRINT]      ; print current
+[__VALUE__][number][current]
+[__OPCODE__][ADD]        ; x + 1
+[__VALUE__][number][1.0]
+[__OPCODE__][SET]        ; update x
+[__VALUE__][number][x]
+[__OPCODE__][IF_LT_JUMP] ; if x < max
+[__VALUE__][scope_ptr=ScopeID_2]
+</Scope ID 2>
+
+<Scope ID 3> ; math_scope
+[__OPCODE__][ADD]         ; sum = 1+2+3+4+5
+[__VALUE__][number][1.0]
+[__VALUE__][number][2.0]
+[__VALUE__][number][3.0]
+[__VALUE__][number][4.0]
+[__VALUE__][number][5.0]
+[__OPCODE__][SET]         ; sum
+[__VALUE__][number][sum]
+[__OPCODE__][SUB]         ; diff = 10-3-2
+[__VALUE__][number][10.0]
+[__VALUE__][number][3.0]
+[__VALUE__][number][2.0]
+[__OPCODE__][SET]         ; diff
+[__VALUE__][number][diff]
+[__OPCODE__][MUL]         ; prod = 2*3*4
+[__VALUE__][number][2.0]
+[__VALUE__][number][3.0]
+[__VALUE__][number][4.0]
+[__OPCODE__][SET]         ; prod
+[__VALUE__][number][prod]
+[__OPCODE__][DIV]         ; quot = 20/2/2
+[__VALUE__][number][20.0]
+[__VALUE__][number][2.0]
+[__VALUE__][number][2.0]
+[__OPCODE__][SET]         ; quot
+[__VALUE__][number][quot]
+[__OPCODE__][PRINT]
+[__VALUE__][string]["Math results:"]
+[__OPCODE__][PRINT]
+[__VALUE__][number][sum]
+[__OPCODE__][PRINT]
+[__VALUE__][number][diff]
+[__OPCODE__][PRINT]
+[__VALUE__][number][prod]
+[__OPCODE__][PRINT]
+[__VALUE__][number][quot]
+</Scope ID 3>
